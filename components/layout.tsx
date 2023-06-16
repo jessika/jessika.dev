@@ -4,20 +4,13 @@ import Link from "next/link";
 
 export const siteTitle = "jessika.dev";
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   // TODO: Update Open Graph Meta tags to improve sharing experience
   return (
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Jessika's personal website"
-        />
+        <meta name="description" content="Jessika's personal website" />
         <meta name="og:title" content={siteTitle} />
       </Head>
       <header className={styles.header}>
