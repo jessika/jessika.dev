@@ -10,17 +10,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="Jessika's personal website" />
+        <meta name="description" content="Personal website of Jessika Wu" />
         <meta name="og:title" content={siteTitle} />
       </Head>
       <header className={styles.header}>
-        <nav>
+        <nav className={styles.nav}>
           <Link className={styles.headerItem} href="/">
-            Home
+            jessika.dev
           </Link>
-          <Link className={styles.headerItem} href="/blog">
-            Blog
-          </Link>
+          <div>
+            <Link className={styles.headerItem} href="/blog">
+              Blog
+            </Link>
+          </div>
         </nav>
       </header>
       <main>{children}</main>
