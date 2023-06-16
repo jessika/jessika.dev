@@ -1,0 +1,8 @@
+.blurb {
+    max-width: 600px;
+}
+
+.icons {
+    display: flex;
+    gap: .5rem;
+}
