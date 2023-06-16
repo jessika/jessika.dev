@@ -1,15 +1,29 @@
 .container {
-  max-width: 36rem;
+  max-width: 1024px;
   padding: 0 1rem;
-  margin: 3rem auto 6rem;
+  margin: 1rem auto 6rem;
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding-bottom: 3rem;
+}
+
+a.headerItem {
+  color: rgb(55, 65, 81);
+  text-decoration: none;
+}
+
+.headerItem {
+  margin-right: 1rem;
 }
 
 .backToHome {
-  margin: 3rem 0 0;
+  margin: 4rem 0 0;
+}
+
+.backToHome a {
+  color: inherit;
+  text-decoration: none;
 }
