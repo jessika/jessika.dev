@@ -2,11 +2,19 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import rehypeSlug from "rehype-slug";
 import rehypeImgSize from "rehype-img-size";
 import rehypeFigure from "rehype-figure";
 
 const postsDirectory = path.join(process.cwd(), "posts");
+
+export interface PostData {
+  id: string;
+  mdxSource: MDXRemoteSerializeResult;
+  date: string;
+  title: string;
+}
 
 export function getSortedPostsData() {
   // Get file names under /posts
