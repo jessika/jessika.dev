@@ -14,7 +14,7 @@ Remark42 advantages:
 - Respects user privacy; doesn't collect sell unnecessary user data
 - Supports many types of user login, including non-logged-in (anonymous), email, Google, Github, Facebook, and more
 - Is an actively maintained project; has many stars and recent commits on Github
-- Is free\* (This guide uses a free implementation, though the setup could involve payment depending on how self-hosting is implemented). I wanted to start with a free implementation because I'm not sure if I want to keep this implementation long-term.
+- Is free\* (\*This guide uses a free implementation, though the setup could involve payment depending on how self-hosting is implemented. I wanted to start with a free implementation because I'm not sure if I want to keep this implementation long-term.)
 
 Remark42 disadvantages:
 
@@ -36,7 +36,7 @@ After following the steps below, you will have added comment support to your web
 
 Prerequisite: This guide assumes that you have an existing live website and that you can modify the source code for this website.
 
-Disclaimer: This tutorial is based on the steps that I used to set up Remark42 with my website, which may not work for your setup. I am developing on MacOS Ventura, and my website that I am adding comments to is built with NextJS and deployed through Vercel.
+Disclaimer: This tutorial is based on the steps that I used to set up Remark42 with my website, which may not work for your setup. I am developing on MacOS Ventura, and my website that I am adding comments to is built with NextJS and deployed through Vercel. The VM that I signed up for in this guide is running Oracle Linux 8.
 
 # Tutorial steps
 
@@ -54,7 +54,7 @@ Disclaimer: This tutorial is based on the steps that I used to set up Remark42 w
 
 # Part 1: Get a compute instance
 
-First you'll need to get a virtual machine for hosting. There are many options for this. This guide shows you how to sign up for a free free compute instance on Oracle Cloud.
+First you'll need to get a virtual machine for hosting. There are many options for this. This guide shows you how to sign up for a free compute instance on Oracle Cloud.
 
 1. Visit [https://oracle.com/cloud/free](https://oracle.com/cloud/free). Click "Start for free" or sign in with an existing account.
 1. Fill out the required account information to create your account. I had to install an Oracle Authenticator mobile app for two-factor authentication. I also had to provide credit card information, though the account that I signed up for was free.
@@ -92,16 +92,17 @@ References:
 
 # Part 3: Create a subdomain that points to your compute instance
 
-1. Find the public IP address of your compute instance. This is located under "Instance information" for your instance on the Oracle website. Mine is "129.146.161.66".
-1. Go to the domain name management settings for the website that you want to add comments to. Add a new record that maps a new subdomain to the public IP address. For example, I decided to call my subdomain "comments.jessgoesoutside.com". For my settings for jessgoesoutside.com, I created a subdomain record for "comments" and mapped it to my public IP address "129.146.161.66".
+1. Find the public IP address of your compute instance. This is located under "Instance information" for your instance on the Oracle Cloud website. For example, mine is "129.146.161.66".
+1. Go to the domain name management settings for the website that you want to add comments to. This will be located at your specific domain name registrar that you used to register your original domain name (for example, NameCheap, Domain.com, DreamHost, GoDaddy, etc)
+1. Decide on a new subdomain of your website that will point to the comment engine. Add a new record that maps the subdomain to the compute instance's public IP address. For example, I decided to call my subdomain "comments.jessgoesoutside.com". In my settings for jessgoesoutside.com, I created a subdomain record for "comments" and mapped it to my public IP address "129.146.161.66".
 
-If you are having trouble adding a subdomain, you can try looking up help documentation for your specific domain name registrar (NameCheap, Domain.com DreamHost, etc).
+If you are having trouble adding a subdomain, try looking up help documentation for your specific domain name registrar for more detailed instructions.
 
 # Part 4: Install Docker
 
 Using Docker is the recommended way to run Remark42 according to the official documentation.
 
-1.  Install Docker on the compute instance. The following commands worked for my compute instance which was running Oracle Linux.
+1.  Install Docker on the compute instance. The following commands worked for my compute instance which was running Oracle Linux 8.
 
     ```
      # Install Docker
@@ -114,15 +115,17 @@ Using Docker is the recommended way to run Remark42 according to the official do
     ```
 
 1.  Allow yourself to run Docker commands as a non-root user.
+
     ```
     sudo groupadd docker
     sudo usermod -aG docker opc
     ```
+
 1.  Log out and log back in to the compute instance so that the permissions from the previous step are active. (ctrl+d to log out, then SSH back into the instance)
 
 References:
 
-- Installing Docker on CentOS [https://docs.docker.com/engine/install/centos/](https://docs.docker.com/engine/install/centos/).
+- Installing Docker on CentOS: [https://docs.docker.com/engine/install/centos/](https://docs.docker.com/engine/install/centos/).
 - Manage Docker as a non-root user: [https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
 
 # Part 5: Start the Remark42 comment engine
@@ -161,6 +164,10 @@ References:
           - ./var:/srv/var
     ```
 
+References:
+
+- [https://remark42.com/docs/getting-started/installation](https://remark42.com/docs/getting-started/installation)
+
 1.  Use Docker to run the Remark42 comment engine.
     ```
     docker compose up -d
@@ -169,7 +176,7 @@ References:
 
 # Part 6: Install NGINX
 
-The steps completed so far will let you run the comment server with the http protocol. We'll install NGINX in order to run a lightweight reverse proxy server that will support both http and https. Https support is important for several reasons, but one in particular is that modern web browsers will often flag a non-https website as unsafe.
+The steps completed so far will let you run the comment enginer server with the HTTP protocol. We'll install NGINX in order to run a lightweight reverse-proxy server that allow the server to support HTTPS. HTTPS support is important for several reasons, but one in particular is that modern web browsers will often flag a non-HTTPS website as unsafe.
 
 1.  Install NGINX and its dependencies.
     ```
@@ -188,8 +195,8 @@ The steps completed so far will let you run the comment server with the http pro
     sudo firewall-cmd --add-service=http --permanent
     sudo firewall-cmd --reload
     ```
-1.  Verify that your nginx server is accessible. Visit http://\<public_IP_address\> (for example http://129.146.161.66/) in your web browser. Verify that you can see the nginx server test page showing the message "Welcome to nginx on Oracle Linux!".
-1.  Verify that the subdomain registered in Part 3 is integrated correctly. Visit your subdomain using http. For example http://comments.jessgoesoutside.com and verify that it shows the same nginx server test page.
+1.  Verify that your NGINX server is accessible. Visit http://\<public_IP_address\> (for example http://129.146.161.66/) in your web browser. Verify that you can see the NGINX server test page showing the message "Welcome to nginx on Oracle Linux!".
+1.  Verify that the subdomain registered in Part 3 is integrated correctly. Visit your subdomain in your browser using HTTP (For example http://comments.jessgoesoutside.com). Verify that it shows the same NGINX server test page.
 
 References:
 
@@ -232,7 +239,7 @@ The following steps install an SSL certificate on an instance specifically runni
     sudo firewall-cmd --add-service=https --permanent
     sudo firewall-cmd --reload
     ```
-1.  Visit your subdomain with https, for example https://comments.jessgoesoutside.com. Verify that you can see the NGINX test page.
+1.  Visit your subdomain in your browser with HTTPS (for example https://comments.jessgoesoutside.com). Verify that you can see the NGINX server test page.
 
 References:
 
@@ -241,7 +248,9 @@ References:
 
 # Part 8: Set up the proxy
 
-1.  In the prior part, Certbot updated the NGINX config file to configure a server listening on port 443 (https) and using the generated certificate. The NGINX config file also redirects the server listening on port 80 (http) to use the https server. We'll need to modify the NGINX config so that the server at port 443 points to the Remark42 instance which is running at 127.0.0.1:8080 as configured in Part 5. To do this, copy the relevants part of the [Remark42 suggested NGINX config](https://remark42.com/docs/manuals/nginx/) and move them into your NGINX config located at /etc/nginx/nginx.conf. The part of my NGINX config file that contains the https and http config looks like this:
+In the prior part, Certbot updated the NGINX config file to configure a server listening on port 443 (https) and using the generated certificate. The NGINX config file also redirects the traffic from port 80 to port 443.
+
+1.  We'll need to modify the NGINX config so that the server listening on port 443 points to the Remark42 instance which is running at 127.0.0.1:8080 as configured in Part 5. To do this, copy the relevants part of the [Remark42 suggested NGINX config](https://remark42.com/docs/manuals/nginx/), and move them into your NGINX config located at /etc/nginx/nginx.conf. Modify the names as necessary. After completing this, the part of my NGINX config file that configures the listeners for port 80 and port 443 looks like this:
 
     ```
     server {
@@ -295,14 +304,14 @@ References:
     }
 
     server {
-        if ($host = comments2.jessgoesoutside.com) {
+        if ($host = comments.jessgoesoutside.com) {
             return 301 https://$host$request_uri;
         } # managed by Certbot
 
 
             listen       80 ;
             listen       [::]:80 ;
-        server_name comments2.jessgoesoutside.com;
+        server_name comments.jessgoesoutside.com;
         return 404; # managed by Certbot
     }
     ```
@@ -315,7 +324,7 @@ References:
     ```
     sudo setsebool -P httpd_can_network_relay 1
     ```
-1.  Verify that you can visit the https version of the your subdomain in the browser. For example, I visit https://comments.jessgoesoutside.com and see a 404 page. I can visit https://comments.jessgoesoutside.com/web and see the Remark42 comment demo page.
+1.  Visit your comments subdomain in your browser (For example, I visit https://comments.jessgoesoutside.com). Verify that you are no longer seeing the NGINX test page. You should see a "404 page not found" because this is what the comment engine uses as the home page. Add "/web" to the url (Example: https://comments.jessgoesoutside.com/web) and verify that you see the Remark42 comment demo page.
 
 References:
 
@@ -324,7 +333,7 @@ References:
 
 ## Part 9: Add the comment widget on your website
 
-1.  My website is built with NextJS and React, and I was able to use the [Remark42 Gatsby React example](https://remark42.com/docs/manuals/integration-with-gatsby/) with minimal modifications. Using the example to create a React component named Comments, I inserted the component into my post page like so:
+1.  Build a comment widget that connects to your comment engine server. My website is built with NextJS and React, and I was able to use the [Remark42 Gatsby React example](https://remark42.com/docs/manuals/integration-with-gatsby/) to create a React comment component with minimal modifications. Naming the component "Comments", I inserted the component into my post page like so:
     ```
     <Comments location={props.slug}></Comments>
     ```
@@ -336,28 +345,31 @@ Congrats! At this point you should have a working comment widget on your website
 References:
 
 - [https://remark42.com/docs/manuals/integration-with-gatsby/](https://remark42.com/docs/manuals/integration-with-gatsby/)
+- [https://remark42.com/docs/configuration/frontend/](https://remark42.com/docs/configuration/frontend/)
 
 ## Part 10: Enable social media login
 
 I've added login support with Google because Google accounts are widely used.
 
-1. Use the Remark42 instructions for integrating Google OAuth: https://remark42.com/docs/configuration/authorization#google. The instructions should give you value for AUTH_GOOGLE_CID and AUTH_GOOGLE_CSEC. Add these to your docker-compose.yml file. Optionally, you can remove AUTH_ANON=true to prevent anonymous comments.
+1. Use the Remark42 instructions for integrating Google OAuth: [https://remark42.com/docs/configuration/authorization#google](https://remark42.com/docs/configuration/authorization#google). The instructions should give you value for AUTH_GOOGLE_CID and AUTH_GOOGLE_CSEC. Add these values to your docker-compose.yml file.
+1. Optionally, you can remove AUTH_ANON=true from docker-compose.yml to prevent anonymous comments now that you have another way for users to identify themselves.
 1. Restart your container for the new changes to take effect.
    ```
    docker compose down
    docker compose up -d
    ```
+1. View the comment widget on your website. Click "Sign in" and verify that you can sign in with a Google account.
 
 ## Part 11: Make yourself an admin
 
-1. Go to your demo comment site. Mine is located at https://comments.jessgoesoutside.com. Sign in with your social media account (with this tutorial, we have only integrated with Google so it will be a Google account).
+1. Go to your demo comment site located at \<subdomain\>/web. (Example https://comments.jessgoesoutside.com/web). Sign in with your social media account (with this tutorial, we have only integrated with Google so it will be a Google account).
 1. Once signed in, your name will appear above the comment box. Click on the name and a panel will appear listing your name with your id underneath. The id will look something like "google_d3441d7745fb76a3a1256c0e2...".
-1. Edit your docker-compose.yml file to add ADMIN_SHARED_ID=google_d3441d7745fb76a3a1256c0e212345, using the id determined the prior step.
+1. Edit your docker-compose.yml file to add ADMIN_SHARED_ID=\<id\> using the id determined in the prior step (Example: ADMIN_SHARED_ID=google_d3441d7745fb76a3a1256c0e212345).
 1. Restart your container for the new changes to take effect.
    ```
    docker compose down
    docker compose up -d
    ```
-1. Verify that you have admin privileges. Sign in to the comment system with your admin account. You should see additional settings and the option to disable comments.
+1. Verify that you have admin privileges. Sign in to the comment system with your same account. You should see additional settings and the option to disable comments.
 
-Congratulations! At this point, you should have comments with admin privileges enabled on your website.
+Congratulations! At this point, you should have a working comment widget on your website that allows social media login and allows you to administrate the comments.
