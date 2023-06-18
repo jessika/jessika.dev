@@ -164,15 +164,15 @@ References:
           - ./var:/srv/var
     ```
 
-References:
-
-- [https://remark42.com/docs/getting-started/installation](https://remark42.com/docs/getting-started/installation)
-
 1.  Use Docker to run the Remark42 comment engine.
     ```
     docker compose up -d
     ```
 1.  Verify that the service is running using `curl -v http://127.0.0.1:8080` and verify that you can connect. You'll see a line in the output like "Connected to 127.0.0.1 (127.0.0.1) port 8080 (#0)". Since this isn't a valid webpage within the Remark42 app, the response will be a "404 page not found".
+
+References:
+
+- [https://remark42.com/docs/getting-started/installation](https://remark42.com/docs/getting-started/installation)
 
 # Part 6: Install NGINX
 
