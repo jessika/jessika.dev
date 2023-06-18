@@ -5,6 +5,7 @@ import Date from "../../components/date";
 import utilStyles from "../../styles/utils.module.css";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { MDXRemote } from "next-mdx-remote";
+import styles from "./id.module.css";
 
 export default function Post({ postData }: { postData: PostData }) {
   return (
@@ -17,7 +18,7 @@ export default function Post({ postData }: { postData: PostData }) {
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
-        <main>
+        <main className={styles.main}>
           <MDXRemote {...postData.mdxSource} />
         </main>
       </article>
