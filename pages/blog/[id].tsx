@@ -4,6 +4,7 @@ import Head from "next/head";
 import Date from "../../components/date";
 import utilStyles from "../../styles/utils.module.css";
 import { GetStaticProps, GetStaticPaths } from "next";
+import { MDXRemote } from "next-mdx-remote";
 
 export default function Post({
   postData,
@@ -24,7 +25,9 @@ export default function Post({
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <main>
+          <MDXRemote {...postData.mdxSource} />
+        </main>
       </article>
     </Layout>
   );
