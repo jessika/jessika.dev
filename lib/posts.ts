@@ -72,7 +72,8 @@ export async function getPostData(id: string) {
       rehypePlugins: [
         rehypeSlug,
         //@ts-ignore Type error from rehypeImgSize
-        [rehypeImgSize, { dir: "public" }],
+        //Commenting this out until I have a chance to add next/image component
+        //[rehypeImgSize, { dir: "public" }],
         [rehypeFigure, { className: "mdxFigure" }],
       ],
     },

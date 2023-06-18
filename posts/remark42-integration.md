@@ -1,6 +1,6 @@
 ---
 title: "Step-by-step guide to integrating with Remark42 comment engine"
-date: "2023-06-17"
+date: "2023-06-18"
 ---
 
 This post contains a step-by-step guide on adding comments to a website using the [Remark42](https://remark42.com) comment engine. Keep reading to see my reasoning behind for choosing Remark42, or skip directly to [Part 1 of the guide](#part-1-get-a-compute-instance).
@@ -32,7 +32,7 @@ There are a few other comment systems that I considered:
 
 After following the steps below, you will have added comment support to your website. Users can make anonymous comments or log in with Google to make comments. This is what the result looks like:
 
-INSERT PHOTO HERE
+![](/images/remark42-integration/remark42-example-widget.png)
 
 Prerequisite: This guide assumes that you have an existing live website and that you can modify the source code for this website.
 
@@ -93,9 +93,7 @@ References:
 # Part 3: Create a subdomain that points to your compute instance
 
 1. Find the public IP address of your compute instance. This is located under "Instance information" for your instance on the Oracle website. Mine is "129.146.161.66".
-1. Go to the domain name management settings for the website that you want to add comments to. Add a new record that points a new subdomain to the public IP address. For example, I decided to call my subdomain "comments". For my website jessgoesoutside.com, I created a subdomain record for "comments.jessgoesoutside.com" and pointed that at my public IP address "129.146.161.66". Here's a screenshot of the new record that I added.
-
-INSERT PHOTO HERE
+1. Go to the domain name management settings for the website that you want to add comments to. Add a new record that maps a new subdomain to the public IP address. For example, I decided to call my subdomain "comments.jessgoesoutside.com". For my settings for jessgoesoutside.com, I created a subdomain record for "comments" and mapped it to my public IP address "129.146.161.66".
 
 If you are having trouble adding a subdomain, you can try looking up help documentation for your specific domain name registrar (NameCheap, Domain.com DreamHost, etc).
 
@@ -362,4 +360,4 @@ I've added login support with Google because Google accounts are widely used.
    ```
 1. Verify that you have admin privileges. Sign in to the comment system with your admin account. You should see additional settings and the option to disable comments.
 
-Congratulations! At this point, you should have comments enabled on your website and administrative abilities.
+Congratulations! At this point, you should have comments with admin privileges enabled on your website.
