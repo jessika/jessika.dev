@@ -10,8 +10,8 @@ export default function Home() {
       </Head>
       <section className={styles.blurb}>
         <p>
-          Hi! I'm Jessika, a software engineer with 7 years of professional
-          experience. I focus on full-stack and frontend development.
+          Hi! I'm Jessika, a software engineer with a focus on full-stack and
+          frontend development.
         </p>
         <div className={styles.icons}>
           <a href="https://github.com/jessika">
