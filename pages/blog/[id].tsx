@@ -6,6 +6,7 @@ import utilStyles from "../../styles/utils.module.css";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import styles from "./id.module.css";
+import Giscus from "@giscus/react";
 
 export default function Post({ postData }: { postData: PostData }) {
   return (
@@ -22,6 +23,20 @@ export default function Post({ postData }: { postData: PostData }) {
           <MDXRemote {...postData.mdxSource} />
         </main>
       </article>
+      <Giscus
+        repo="jessika/jessika.dev"
+        repoId="R_kgDOJwIOuA"
+        category="Announcements"
+        categoryId="DIC_kwDOJwIOuM4CXTio"
+        mapping="pathname"
+        strict="1"
+        reactionsEnabled="0"
+        emitMetadata="0"
+        inputPosition="bottom"
+        theme="light"
+        lang="en"
+        loading="lazy"
+      />
     </Layout>
   );
 }
