@@ -1,10 +1,18 @@
 import Head from "next/head";
-import styles from "./layout.module.css";
+import styles from "./Layout.module.scss";
 import Link from "next/link";
+import { useEffect } from "react";
+import { ColorScheme, registerColorSchemeListener } from "../lib/color-schemes";
 
 export const siteTitle = "jessika.dev";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    return registerColorSchemeListener((theme: ColorScheme) => {
+      document.body.dataset.bsTheme = theme;
+    });
+  }, []);
+
   // TODO: Update Open Graph Meta tags to improve sharing experience
   return (
     <div className={styles.container}>

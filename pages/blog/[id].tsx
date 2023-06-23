@@ -1,22 +1,33 @@
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import { getAllPostIds, getPostData, PostData } from "../../lib/posts";
 import Head from "next/head";
-import Date from "../../components/date";
-import utilStyles from "../../styles/utils.module.css";
+import Date from "../../components/Date";
+import utilStyles from "../../styles/utils.module.scss";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { MDXRemote } from "next-mdx-remote";
-import styles from "./id.module.css";
+import styles from "./id.module.scss";
 import Giscus from "@giscus/react";
+import {
+  getColorScheme,
+  registerColorSchemeListener,
+} from "../../lib/color-schemes";
+import { useEffect, useState } from "react";
 
 export default function Post({ postData }: { postData: PostData }) {
+  const [colorScheme, setColorScheme] = useState(getColorScheme());
+  useEffect(() => {
+    return registerColorSchemeListener((newColorScheme) => {
+      setColorScheme(newColorScheme);
+    });
+  }, []);
   return (
     <Layout>
       <Head>
         <title>{postData.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
+        <h1>{postData.title}</h1>
+        <div className={styles.date}>
           <Date dateString={postData.date} />
         </div>
         <main className={styles.main}>
@@ -33,7 +44,7 @@ export default function Post({ postData }: { postData: PostData }) {
         reactionsEnabled="0"
         emitMetadata="0"
         inputPosition="bottom"
-        theme="light"
+        theme={colorScheme}
         lang="en"
         loading="lazy"
       />

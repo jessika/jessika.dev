@@ -5,7 +5,7 @@ date: "2023-06-18"
 
 This post contains a step-by-step guide on adding comments to a website using the [Remark42](https://remark42.com) comment engine. Keep reading to see my reasoning behind for choosing Remark42, or skip directly to [Part 1 of the guide](#part-1-get-a-compute-instance).
 
-# Why I chose Remark42 as my comment engine
+## Why I chose Remark42 as my comment engine
 
 Remark42 advantages:
 
@@ -28,7 +28,7 @@ There are a few other comment systems that I considered:
 - [Giscus](https://giscus.app). A clean-looking comment UI that uses Github discussions to store the comments. This comment system requires users to log in with Github. I didn't choose this for my travel blog because my readers are not likely to be Github users.
 - [Disqus](https://disqus.com). This appears to be a well-supported comment system that is very popular. It has many login-types. I chose not to use this because of the ads and selling of user data.
 
-# Overview of this tutorial
+## Overview of this tutorial
 
 After following the steps below, you will have added comment support to your website. Users can make anonymous comments or log in with Google to make comments. This is what the result looks like:
 
@@ -38,7 +38,7 @@ Prerequisite: This guide assumes that you have an existing live website and that
 
 Disclaimer: This tutorial is based on the steps that I used to set up Remark42 with my website, which may not work for your setup. I am developing on MacOS Ventura, and my website that I am adding comments to is built with NextJS and deployed through Vercel. The VM that I signed up for in this guide is running Oracle Linux 8.
 
-# Tutorial steps
+## Tutorial steps
 
 - [Part 1: Get a compute instance](#part-1-get-a-compute-instance)
 - [Part 2: SSH to your compute instance](#part-2-ssh-to-your-compute-instance)
@@ -52,7 +52,7 @@ Disclaimer: This tutorial is based on the steps that I used to set up Remark42 w
 - [Part 10: Enable social media login](#part-10-enable-social-media-login)
 - [Part 11: Make yourself an admin](#part-11-make-yourself-an-admin)
 
-# Part 1: Get a compute instance
+## Part 1: Get a compute instance
 
 First you'll need to get a virtual machine for hosting. There are many options for this. This guide shows you how to sign up for a free compute instance on Oracle Cloud.
 
@@ -68,7 +68,7 @@ References:
 
 - My original inspiration for using Oracle Cloud compute instance: [https://terrty.net/2022/self-hosted-comments-remark42/](https://terrty.net/2022/self-hosted-comments-remark42/)
 
-# Part 2: SSH to your compute instance
+## Part 2: SSH to your compute instance
 
 1. Before SSH-ing, collect the following information.
    - the private key file that you downloaded in the prior section
@@ -90,7 +90,7 @@ References:
    [opc@instance-20230616-1632 ~]$
    ```
 
-# Part 3: Create a subdomain that points to your compute instance
+## Part 3: Create a subdomain that points to your compute instance
 
 1. Find the public IP address of your compute instance. This is located under "Instance information" for your instance on the Oracle Cloud website. For example, mine is "129.146.161.66".
 1. Go to the domain name management settings for the website that you want to add comments to. This will be located at your specific domain name registrar that you used to register your original domain name (for example, NameCheap, Domain.com, DreamHost, GoDaddy, etc)
@@ -98,7 +98,7 @@ References:
 
 If you are having trouble adding a subdomain, try looking up help documentation for your specific domain name registrar for more detailed instructions.
 
-# Part 4: Install Docker
+## Part 4: Install Docker
 
 Using Docker is the recommended way to run Remark42 according to the official documentation.
 
@@ -128,7 +128,7 @@ References:
 - Installing Docker on CentOS: [https://docs.docker.com/engine/install/centos/](https://docs.docker.com/engine/install/centos/).
 - Manage Docker as a non-root user: [https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
 
-# Part 5: Start the Remark42 comment engine
+## Part 5: Start the Remark42 comment engine
 
 1.  As described in the official [Remark42 install documentation](https://remark42.com/docs/getting-started/installation/), you need to add a docker-compose.yml file to run Remark42 with Docker. Create a file named "docker-compose.yml" on your instance and paste the contents of the example "docker-compose.yml" into it, then modify to your needs. My file looks like this:
 
@@ -174,7 +174,7 @@ References:
 
 - [https://remark42.com/docs/getting-started/installation](https://remark42.com/docs/getting-started/installation)
 
-# Part 6: Install NGINX
+## Part 6: Install NGINX
 
 The steps completed so far will let you run the comment enginer server with the HTTP protocol. We'll install NGINX in order to run a lightweight reverse-proxy server that allow the server to support HTTPS. HTTPS support is important for several reasons, but one in particular is that modern web browsers will often flag a non-HTTPS website as unsafe.
 
@@ -202,7 +202,7 @@ References:
 
 - [https://docs.oracle.com/en/learn/oracle-linux-nginx](https://docs.oracle.com/en/learn/oracle-linux-nginx)
 
-# Part 7: Install SSL certificate
+## Part 7: Install SSL certificate
 
 The following steps install an SSL certificate on an instance specifically running Oracle Linux 8.
 
@@ -246,7 +246,7 @@ References:
 - [https://oracle-base.com/articles/linux/letsencrypt-free-certificates-on-oracle-linux](https://oracle-base.com/articles/linux/letsencrypt-free-certificates-on-oracle-linux)
 - [https://certbot.eff.org/instructions?ws=nginx&os=centosrhel8](https://certbot.eff.org/instructions?ws=nginx&os=centosrhel8)
 
-# Part 8: Set up the proxy
+## Part 8: Set up the proxy
 
 In the prior part, Certbot updated the NGINX config file to configure a server listening on port 443 (https) and using the generated certificate. The NGINX config file also redirects the traffic from port 80 to port 443.
 
