@@ -1,3 +1,5 @@
+@use "styles/typography.scss";
+
 .main pre {
   font-size: 16px;
   line-height: 24px;
@@ -5,4 +7,9 @@
 
 .main {
   overflow: scroll;
+}
+
+.date {
+  @include typography.subheader;
+  margin-bottom: 2rem;
 }
