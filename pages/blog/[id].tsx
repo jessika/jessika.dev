@@ -7,8 +7,19 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import styles from "./id.module.scss";
 import Giscus from "@giscus/react";
+import {
+  getColorScheme,
+  registerColorSchemeListener,
+} from "../../lib/color-schemes";
+import { useEffect, useState } from "react";
 
 export default function Post({ postData }: { postData: PostData }) {
+  const [colorScheme, setColorScheme] = useState(getColorScheme());
+  useEffect(() => {
+    return registerColorSchemeListener((newColorScheme) => {
+      setColorScheme(newColorScheme);
+    });
+  }, []);
   return (
     <Layout>
       <Head>
@@ -33,7 +44,7 @@ export default function Post({ postData }: { postData: PostData }) {
         reactionsEnabled="0"
         emitMetadata="0"
         inputPosition="bottom"
-        theme="light"
+        theme={colorScheme}
         lang="en"
         loading="lazy"
       />
