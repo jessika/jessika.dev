@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "./layout.module.css";
+import styles from "./Layout.module.scss";
 import Link from "next/link";
 
 export const siteTitle = "jessika.dev";

@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
-import styles from "./index.module.css";
+import Layout, { siteTitle } from "../components/Layout";
+import styles from "./index.module.scss";
 
 export default function Home() {
   return (
