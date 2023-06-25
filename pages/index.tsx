@@ -2,14 +2,10 @@ import Head from "next/head";
 import Layout, { siteTitle } from "../components/Layout";
 import styles from "./index.module.scss";
 import { useEffect, useState } from "react";
-import {
-  ColorScheme,
-  getColorScheme,
-  registerColorSchemeListener,
-} from "../lib/color-schemes";
+import { ColorScheme, registerColorSchemeListener } from "../lib/color-schemes";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function Home() {
-  //const [githubIcon, setGithubIcon] = useState("/images/icons/brand-github-theme-light.svg");
   const [githubIcon, setGithubIcon] = useState("");
   const [linkedinIcon, setLinkedinIcon] = useState("");
   useEffect(() => {
@@ -35,12 +31,24 @@ export default function Home() {
           frontend development.
         </p>
         <div className={styles.icons}>
-          <a href="https://github.com/jessika">
-            <img src={githubIcon} alt="Github icon" />
-          </a>
-          <a href="https://linkedin.com/in/jessikawu1">
-            <img src={linkedinIcon} alt="LinkedIn icon" />
-          </a>
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 500, hide: 0 }}
+            overlay={<Tooltip>GitHub</Tooltip>}
+          >
+            <a href="https://github.com/jessika">
+              <img src={githubIcon} alt="Github icon" />
+            </a>
+          </OverlayTrigger>
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 500, hide: 0 }}
+            overlay={<Tooltip>LinkedIn</Tooltip>}
+          >
+            <a href="https://linkedin.com/in/jessikawu1">
+              <img src={linkedinIcon} alt="LinkedIn icon" />
+            </a>
+          </OverlayTrigger>
         </div>
       </section>
     </Layout>
