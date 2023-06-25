@@ -24,7 +24,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header className={styles.header}>
         <nav className={styles.nav}>
           <Link className={styles.headerItem} href="/">
-            jessika.dev
+            <span className={styles.logoJessika}>jessika</span>
+            <span className={styles.logoDev}>.dev</span>
           </Link>
           <div>
             <Link className={styles.headerItem} href="/blog">
