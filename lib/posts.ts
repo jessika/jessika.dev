@@ -6,6 +6,7 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import rehypeSlug from "rehype-slug";
 import rehypeImgSize from "rehype-img-size";
 import rehypeFigure from "rehype-figure";
+import rehypePrism from "@mapbox/rehype-prism";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -71,6 +72,7 @@ export async function getPostData(id: string) {
       remarkPlugins: [],
       rehypePlugins: [
         rehypeSlug,
+        rehypePrism,
         //@ts-ignore Type error from rehypeImgSize
         //Commenting this out until I have a chance to add next/image component
         //[rehypeImgSize, { dir: "public" }],

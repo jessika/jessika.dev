@@ -75,18 +75,18 @@ References:
    - the instance's public IP address (Located under "Instance information")
    - your username on the instance (Defaults to "opc")
 1. Make the private key file readonly. Otherwise you may get an error when you attempt to SSH.
-   ```
+   ```bash
    # Replace <private_key_filename> with the actual filename.
    chmod 400 <private_key_filename>
    ```
 1. SSH to the compute instance.
-   ```
+   ```bash
    # Example `ssh -i ssh-key-2023-06-16.key opc@129.146.161.66`
    ssh -i <private_key_filename> <username>@<instance_public_IP>`
    ```
 1. Because this is your first time SSH-ing to this machine, you will see a message like "The authenticity of host '129.146.161.66 (129.146.161.66)' can't be established... Are you sure you want to continue connecting (yes/no/[fingerprint])?" Type "yes" and enter.
 1. Verify that you have successfully SSH-ed to the instance. The terminal prompt should something like the following.
-   ```
+   ```bash
    [opc@instance-20230616-1632 ~]$
    ```
 
@@ -104,7 +104,7 @@ Using Docker is the recommended way to run Remark42 according to the official do
 
 1.  Install Docker on the compute instance. The following commands worked for my compute instance which was running Oracle Linux 8.
 
-    ```
+    ```bash
      # Install Docker
      sudo yum install -y yum-utils
      sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -116,7 +116,7 @@ Using Docker is the recommended way to run Remark42 according to the official do
 
 1.  Allow yourself to run Docker commands as a non-root user.
 
-    ```
+    ```bash
     sudo groupadd docker
     sudo usermod -aG docker opc
     ```
@@ -132,7 +132,7 @@ References:
 
 1.  As described in the official [Remark42 install documentation](https://remark42.com/docs/getting-started/installation/), you need to add a docker-compose.yml file to run Remark42 with Docker. Create a file named "docker-compose.yml" on your instance and paste the contents of the example "docker-compose.yml" into it, then modify to your needs. My file looks like this:
 
-    ```
+    ```yml
     version: "2"
 
     services:
@@ -165,7 +165,7 @@ References:
     ```
 
 1.  Use Docker to run the Remark42 comment engine.
-    ```
+    ```bash
     docker compose up -d
     ```
 1.  Verify that the service is running using `curl -v http://127.0.0.1:8080` and verify that you can connect. You'll see a line in the output like "Connected to 127.0.0.1 (127.0.0.1) port 8080 (#0)". Since this isn't a valid webpage within the Remark42 app, the response will be a "404 page not found".
@@ -179,19 +179,19 @@ References:
 The steps completed so far will let you run the comment enginer server with the HTTP protocol. We'll install NGINX in order to run a lightweight reverse-proxy server that allow the server to support HTTPS. HTTPS support is important for several reasons, but one in particular is that modern web browsers will often flag a non-HTTPS website as unsafe.
 
 1.  Install NGINX and its dependencies.
-    ```
+    ```bash
     sudo dnf install -y nginx
     ```
 1.  Start the NGINX service.
-    ```
+    ```bash
     sudo systemctl enable --now nginx.service
     ```
 1.  Check the status.
-    ```
+    ```bash
     sudo systemctl status nginx
     ```
 1.  Open the firewall port for the nginx web service (port 80)
-    ```
+    ```bash
     sudo firewall-cmd --add-service=http --permanent
     sudo firewall-cmd --reload
     ```
@@ -207,35 +207,35 @@ References:
 The following steps install an SSL certificate on an instance specifically running Oracle Linux 8.
 
 1.  Enable the EPEL repository for your Oracle Linux version. I looked up the instance details for my instance and found that it was using the image Oracle-Linux-8.7-aarch64-2023.05.24-0 (Oracle Linux 8).
-    ```
+    ```bash
     cd /tmp
     wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
     sudo rpm -Uvh /tmp/epel-release-latest-8.noarch.rpm
     cd
     ```
 1.  Install snap.
-    ```
+    ```bash
     sudo dnf install -y snapd
     sudo systemctl enable --now snapd.socket
     sudo systemctl start snapd
     sudo ln -s /var/lib/snapd/snap /snap
     ```
 1.  Install and refresh core.
-    ```
+    ```bash
     sudo snap install core
     sudo snap refresh core
     ```
 1.  Install certbot.
-    ```
+    ```bash
     sudo snap install --classic certbot
     sudo ln -s /snap/bin/certbot /usr/bin/certbot
     ```
 1.  Run the following command to get a certificate and have Certbot edit your NGINX configuration automatically to serve it, turning on HTTPS access in a single step. You'll need to provide the domain name you are registering the certificate for, which is the subdomain specified in Part 3. For my site this is "comments.jessgoesoutside.com".
-    ```
+    ```bash
     sudo certbot --nginx
     ```
 1.  Open firewall port for https (443).
-    ```
+    ```bash
     sudo firewall-cmd --add-service=https --permanent
     sudo firewall-cmd --reload
     ```
@@ -252,21 +252,21 @@ In the prior part, Certbot updated the NGINX config file to configure a server l
 
 1.  We'll need to modify the NGINX config so that the server listening on port 443 points to the Remark42 instance which is running at 127.0.0.1:8080 as configured in Part 5. To do this, copy the relevants part of the [Remark42 suggested NGINX config](https://remark42.com/docs/manuals/nginx/), and move them into your NGINX config located at /etc/nginx/nginx.conf. Modify the names as necessary. After completing this, the part of my NGINX config file that configures the listeners for port 80 and port 443 looks like this:
 
-    ```
+    ```nginx
     server {
         server_name comments.jessgoesoutside.com; # managed by Certbot
-            root         /usr/share/nginx/html;
+        root         /usr/share/nginx/html;
 
-            # Load configuration files for the default server block.
-            include /etc/nginx/default.d/*.conf;
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
 
-            error_page 404 /404.html;
-                location = /40x.html {
-            }
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
 
-            error_page 500 502 503 504 /50x.html;
-                location = /50x.html {
-            }
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
 
         listen [::]:443 ssl ipv6only=on; # managed by Certbot
         listen 443 ssl; # managed by Certbot
@@ -308,20 +308,19 @@ In the prior part, Certbot updated the NGINX config file to configure a server l
             return 301 https://$host$request_uri;
         } # managed by Certbot
 
-
-            listen       80 ;
-            listen       [::]:80 ;
+        listen       80 ;
+        listen       [::]:80 ;
         server_name comments.jessgoesoutside.com;
         return 404; # managed by Certbot
     }
     ```
 
 1.  Restart NGINX so that the modified config takes effect.
-    ```
+    ```bash
     sudo systemctl restart nginx
     ```
 1.  Run the following command to allow the reverse proxy to relay requests.
-    ```
+    ```bash
     sudo setsebool -P httpd_can_network_relay 1
     ```
 1.  Visit your comments subdomain in your browser (For example, I visit https://comments.jessgoesoutside.com). Verify that you are no longer seeing the NGINX test page. You should see a "404 page not found" because this is what the comment engine uses as the home page. Add "/web" to the url (Example: https://comments.jessgoesoutside.com/web) and verify that you see the Remark42 comment demo page.
@@ -334,8 +333,8 @@ References:
 ## Part 9: Add the comment widget on your website
 
 1.  Build a comment widget that connects to your comment engine server. My website is built with NextJS and React, and I was able to use the [Remark42 Gatsby React example](https://remark42.com/docs/manuals/integration-with-gatsby/) to create a React comment component with minimal modifications. Naming the component "Comments", I inserted the component into my post page like so:
-    ```
-    <Comments location={props.slug}></Comments>
+    ```html
+    <Comments location="{props.slug}"></Comments>
     ```
 1.  Run the code locally and ensure that you can see the comment widget. You may not be able to submit comments because the development domain is different from the production domain.
 1.  Deploy the code, and verify that the comment widget works on your website.
@@ -354,7 +353,7 @@ I've added login support with Google because Google accounts are widely used.
 1. Use the Remark42 instructions for integrating Google OAuth: [https://remark42.com/docs/configuration/authorization#google](https://remark42.com/docs/configuration/authorization#google). The instructions should give you value for AUTH_GOOGLE_CID and AUTH_GOOGLE_CSEC. Add these values to your docker-compose.yml file.
 1. Optionally, you can remove AUTH_ANON=true from docker-compose.yml to prevent anonymous comments now that you have another way for users to identify themselves.
 1. Restart your container for the new changes to take effect.
-   ```
+   ```bash
    docker compose down
    docker compose up -d
    ```
@@ -366,7 +365,7 @@ I've added login support with Google because Google accounts are widely used.
 1. Once signed in, your name will appear above the comment box. Click on the name and a panel will appear listing your name with your id underneath. The id will look something like "google_d3441d7745fb76a3a1256c0e2...".
 1. Edit your docker-compose.yml file to add ADMIN_SHARED_ID=\<id\> using the id determined in the prior step (Example: ADMIN_SHARED_ID=google_d3441d7745fb76a3a1256c0e212345).
 1. Restart your container for the new changes to take effect.
-   ```
+   ```bash
    docker compose down
    docker compose up -d
    ```

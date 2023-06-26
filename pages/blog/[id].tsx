@@ -2,7 +2,6 @@ import Layout from "../../components/Layout";
 import { getAllPostIds, getPostData, PostData } from "../../lib/posts";
 import Head from "next/head";
 import Date from "../../components/Date";
-import utilStyles from "../../styles/utils.module.scss";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import styles from "./id.module.scss";
