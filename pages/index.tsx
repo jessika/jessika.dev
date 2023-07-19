@@ -26,9 +26,10 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
       <section className={styles.blurb}>
+        <h1>Hi, I'm Jessika!</h1>
         <p>
-          Hi! I'm Jessika, a software engineer with a focus on full-stack and
-          frontend development.
+          I'm a software engineer with a focus on full-stack and frontend
+          development.
         </p>
         <div className={styles.icons}>
           <OverlayTrigger

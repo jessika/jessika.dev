@@ -1,28 +1,19 @@
 .container {
-  max-width: 768px;
-  padding: 0 1rem;
-  margin: 1rem auto 6rem;
-}
-
-.nav {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-}
-
-.header {
   display: flex;
   flex-direction: column;
-  padding-bottom: 3rem;
+  min-height: 100vh;
 }
 
-a.headerItem {
-  color: var(--bs-primary-color);
-  text-decoration: none;
+.header,
+.main,
+.footer {
+  display: flex;
+  justify-content: center;
 }
 
-.headerItem {
-  margin-right: 1rem;
+.main {
+  flex-grow: 1;
+  padding-bottom: 4rem;
 }
 
 .logoJessika {
@@ -38,4 +29,62 @@ a.headerItem {
   font-size: 28px;
   font-weight: 500;
   line-height: 1.2;
+}
+
+.mainInternal {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.footer {
+  border-top: 1px var(--bs-border-color) solid;
+  padding: 3rem 0;
+}
+
+.footerInternal {
+  display: flex;
+}
+
+.headerInternal,
+.mainInternal,
+.footerInternal {
+  max-width: 1024px;
+  padding: 0 1rem;
+}
+
+.header {
+  backdrop-filter: saturate(180%) blur(5px);
+  background: rgba(var(--bs-body-bg-rgb), 0.8);
+  display: flex;
+  position: sticky;
+  top: -1px;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  z-index: 1;
+}
+
+.headerScrolled {
+  box-shadow: inset 0 -1px 0 0 var(--bs-border-color);
+}
+
+.headerInternal,
+.mainInternal,
+.footerInternal {
+  display: flex;
+  flex-basis: 100%;
+}
+
+nav.headerInternal {
+  align-items: center;
+  justify-content: space-between;
+}
+
+a.headerItem {
+  color: var(--bs-primary-color);
+  text-decoration: none;
+}
+
+.headerItem {
+  margin-right: 1rem;
 }

@@ -12,6 +12,10 @@ body {
   box-sizing: border-box;
 }
 
+body a {
+  text-decoration: none;
+}
+
 a:hover {
   text-decoration: underline;
 }

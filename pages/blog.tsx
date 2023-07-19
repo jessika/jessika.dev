@@ -5,6 +5,7 @@ import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/Date";
 import { GetStaticProps } from "next";
+import styles from "./blog.module.scss";
 
 export default function Blog({
   allPostsData,
@@ -25,7 +26,9 @@ export default function Blog({
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
-              <Link href={`/blog/${id}`}>{title}</Link>
+              <Link className={styles.blogTitle} href={`/blog/${id}`}>
+                {title}
+              </Link>
               <br />
               <small className={utilStyles.lightText}>
                 <Date dateString={date} />
