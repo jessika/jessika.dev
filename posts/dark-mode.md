@@ -14,11 +14,9 @@ When using my phone in dark mode, I've noticed that it's quite jarring when movi
 
 ## Detecting the user's color mode preference
 
-I'm using the user's color mode preference, set on their operating system, to determine whether to show the website in dark mode or not. For example, on an iPhone, the user can go to the iPhone settings to adjust the
+I'm using the user's color mode preference, set on their operating system, to determine whether to show the website in dark mode or not. For example, on an iPhone, the user can go to the [iPhone settings to adjust their preference for dark mode](/images/dark-mode/iphone_appearance_setting.png).
 
-[On an iPhone, the user can go to their settings to adjust their preference for dark mode.](/images/dark-mode/iphone_appearance_setting.png)
-
-To detect the user's color mode preference in browser code (TypeScript or JavaScript), use the following
+To detect the user's color mode preference in browser code (TypeScript or JavaScript), use the following:
 
 ```typescript
 const colorScheme = window.matchMedia("(prefers-color-scheme:dark)").matches
@@ -64,9 +62,9 @@ export function registerColorSchemeListener(
 
 To update the basic colors on my website, my first step was installing a style system that supports dark mode. I'm using a style system so that I don't have to design my own colors. The style system contains colors in both dark and light versions. I decided to use Bootstrap because it's a popular and well-maintained style choice that I've been wanting to try out.
 
-1.  To use Bootstrap, follow the installation instructions at https://getbootstrap.com/docs/5.3/getting-started/download/. I used npm to install, and imported the styles from https://getbootstrap.com/docs/5.3/getting-started/download/. [Note that v5.3 is the first Bootstrap version with color mode support](https://getbootstrap.com/docs/5.3/customize/color-modes/)
+1.  First you need to install Bootstrap. For my React application, I'm using React Bootstrap which I installed with the instructions from [https://react-bootstrap.netlify.app/docs/getting-started/introduction](https://react-bootstrap.netlify.app/docs/getting-started/introduction). Note that [v5.3 is the first Bootstrap version with color mode support](https://getbootstrap.com/docs/5.3/customize/color-modes/).
 
-1.  In Bootstrap, you can set the color mode by setting the attribute `data-bs-theme` on an HTML element. To set the color mode for the entire page, I set the `data-bs-theme` on the body of the document. This code snippet shows how to update the `data-bs-theme` attribute whenever the user's color mode preference changes. It uses the `registerColorScheme` method defined in the [prior section](#detecting-the-users-color-mode-preference).
+1.  In Bootstrap, you can set the color mode by setting the attribute `data-bs-theme` on an HTML element. To set the color mode for the entire page, I set the `data-bs-theme` on the body of the document. This code snippet shows how to update the `data-bs-theme` attribute whenever the user's color mode preference changes. It uses the `registerColorScheme` method defined in the prior section: ["Detecting the user's color mode preference"](#detecting-the-users-color-mode-preference).
 
     ```typescript
     registerColorSchemeListener((theme: ColorScheme) => {
@@ -86,7 +84,7 @@ To update the basic colors on my website, my first step was installing a style s
 
 ## Using dark-mode SVG's
 
-On my website, I stored an SVG as a separate file and inserted it using an `img` tag. In order to support light and dark modes, I had to store a light version and a dark version for each SVG; the only difference between the two versions was the fill color. In my React component, I use the `registerColorSchemeListener` method to determine which SVG to insert into the HTML. (Note that this implementation is specific to SVG's that are inserted as files. Inlined SVG's can simply be styled with the desired color in CSS, [following the same implementation as the prior section](#using-dark-mode-website-colors).
+On my website, I stored an SVG as a separate file and inserted it using an `img` tag. In order to support light and dark modes, I had to store a light version and a dark version for each SVG; the only difference between the two versions was the fill color. In my React component, I use the `registerColorSchemeListener` method to determine which SVG to insert into the HTML. (Note that this implementation is specific to SVG's that are inserted as files. Inlined SVG's can simply be styled with the desired color in CSS, using a Bootstrap color variable as described in the prior section: ["Using dark-mode website colors"](#using-dark-mode-website-colors).)
 
 Here's an example of a home page component that has an SVG on it.
 
@@ -116,7 +114,7 @@ export default function Home() {
 
 ## Using dark-mode third-party applications
 
-My blog uses [giscus](https://giscus.app) for commenting. Here's an example of how I've configured Giscus to read the color theme.
+My blog uses [giscus](https://giscus.app) for commenting. The following snippet shows how I configured Giscus to read the color theme.
 
 ```typescript
 export default function BlogPost() {
@@ -141,4 +139,4 @@ export default function BlogPost() {
 
 ## Any other use case
 
-The implementations for the different components (base website colors, SVG's, and giscus) were very similar. Many other use cases can be covered using the same pattern, using the methods defined in [Detecting the user's color mode preference](#detecting-the-users-color-mode-preference) to register a listener and updating the component accordingly.
+The implementations for the different components (base website colors, SVG's, and giscus) were very similar. Many other use cases can be covered using the same pattern, using the methods defined in ["Detecting the user's color mode preference"](#detecting-the-users-color-mode-preference) to register a listener and updating the component accordingly.
