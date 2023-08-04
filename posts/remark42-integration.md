@@ -1,6 +1,7 @@
 ---
 title: "Step-by-step guide to integrating with Remark42 comment engine"
 date: "2023-06-18"
+snippet: "Very detailed instructions describing how to add Remark42 comments to a website"
 ---
 
 This post contains a step-by-step guide on adding comments to a website using the [Remark42](https://remark42.com) comment engine. Keep reading to see my reasoning behind for choosing Remark42, or skip directly to [Part 1 of the guide](#part-1-get-a-compute-instance).

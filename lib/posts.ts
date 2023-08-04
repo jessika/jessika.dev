@@ -14,6 +14,7 @@ export interface PostData {
   id: string;
   mdxSource: MDXRemoteSerializeResult;
   date: string;
+  snippet: string;
   title: string;
 }
 
@@ -34,7 +35,11 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...(matterResult.data as { date: string; title: string }),
+      ...(matterResult.data as {
+        date: string;
+        snippet: string;
+        title: string;
+      }),
     };
   });
   // Sort posts by date
@@ -85,6 +90,6 @@ export async function getPostData(id: string) {
   return {
     id,
     mdxSource,
-    ...(matterResult.data as { date: string; title: string }),
+    ...(matterResult.data as { date: string; snippet: string; title: string }),
   };
 }

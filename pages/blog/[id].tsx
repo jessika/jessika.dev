@@ -23,6 +23,7 @@ export default function Post({ postData }: { postData: PostData }) {
     <Layout>
       <Head>
         <title>{postData.title}</title>
+        <meta key="description" name="description" content={postData.snippet} />
       </Head>
       <article className={styles.article}>
         <h1>{postData.title}</h1>

@@ -36,7 +36,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="Personal website of Jessika Wu" />
+        // Description used in search snippets and giscus parent discussion body
+        <meta
+          key="description"
+          name="description"
+          content="Personal website of a software developer"
+        />
         <meta name="og:title" content={siteTitle} />
       </Head>
       <header className={styles.header}>

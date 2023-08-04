@@ -1,6 +1,7 @@
 ---
 title: "Enabling dark mode on my blog based on OS preference"
 date: "2023-08-02"
+snippet: "Sometimes you just want to look at a dark screen"
 ---
 
 When using my phone in dark mode, I've noticed that it's quite jarring when moving from a dark-mode website, such as Google Search, to one that doesn't support dark mode. The sudden bright background is unexpected. Below I'll describe how I implemented dark mode support on this blog.
