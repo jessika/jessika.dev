@@ -11,6 +11,14 @@ import {
   registerColorSchemeListener,
 } from "../../lib/color-schemes";
 import { useEffect, useState } from "react";
+import JobSearchSankey from "../../components/job_search/JobSearchSankey";
+import { JobSearchSankeyProps } from "../../components/job_search/types";
+
+const mdxComponents = {
+  JobSearchSankey: (props: JobSearchSankeyProps) => {
+    return <JobSearchSankey {...props} />;
+  },
+};
 
 export default function Post({ postData }: { postData: PostData }) {
   const [colorScheme, setColorScheme] = useState(getColorScheme());
@@ -31,7 +39,7 @@ export default function Post({ postData }: { postData: PostData }) {
           <Date dateString={postData.date} />
         </div>
         <main className={styles.main}>
-          <MDXRemote {...postData.mdxSource} />
+          <MDXRemote {...postData.mdxSource} components={mdxComponents} />
         </main>
       </article>
       <Giscus

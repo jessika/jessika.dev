@@ -1,0 +1,236 @@
+{
+  "nodes": [
+    {
+      "name": "Applied",
+      "category": "Applied",
+      "count": 82
+    },
+    {
+      "name": "Applied;Recruiter Interview",
+      "category": "Recruiter Interview",
+      "count": 26
+    },
+    {
+      "name": "Applied;Recruiter Interview;Rejected By Me",
+      "category": "Rejected By Me",
+      "count": 2
+    },
+    {
+      "name": "Applied;Recruiter Interview;Technical Interview",
+      "category": "Technical Interview",
+      "count": 11
+    },
+    {
+      "name": "Applied;Technical Interview",
+      "category": "Technical Interview",
+      "count": 1
+    },
+    {
+      "name": "Onsite Interview;Manager Interview",
+      "category": "Manager Interview",
+      "count": 2
+    },
+    {
+      "name": "Onsite Interview",
+      "category": "Onsite Interview",
+      "count": 6
+    },
+    {
+      "name": "Onsite Interview;Manager Interview;2nd Technical",
+      "category": "2nd Technical",
+      "count": 1
+    },
+    {
+      "name": "Onsite Interview;Manager Interview;2nd Technical;Offer",
+      "category": "Offer",
+      "count": 1
+    },
+    {
+      "name": "Applied;Recruiter Interview;Technical Interview;Manager Interview",
+      "category": "Manager Interview",
+      "count": 1
+    },
+    {
+      "name": "Applied;Recruiter Interview;Manager Interview",
+      "category": "Manager Interview",
+      "count": 2
+    },
+    {
+      "name": "Applied;Recruiter Interview;Manager Interview;Technical Interview",
+      "category": "Technical Interview",
+      "count": 1
+    },
+    {
+      "name": "Applied;Recruiter Interview;Manager Interview;Technical Interview;2nd Technical",
+      "category": "2nd Technical",
+      "count": 1
+    },
+    {
+      "name": "Applied;Manager Interview",
+      "category": "Manager Interview",
+      "count": 2
+    },
+    {
+      "name": "Applied;Rejected By Me",
+      "category": "Rejected By Me",
+      "count": 1
+    },
+    {
+      "name": "Rejected",
+      "category": "Rejected",
+      "count": 41
+    },
+    {
+      "name": "No Reply",
+      "category": "No Reply",
+      "count": 37
+    }
+  ],
+  "links": [
+    {
+      "source": "Applied",
+      "target": "Applied;Recruiter Interview",
+      "value": 26
+    },
+    {
+      "source": "Applied",
+      "target": "Rejected",
+      "value": 19
+    },
+    {
+      "source": "Applied;Recruiter Interview",
+      "target": "Applied;Recruiter Interview;Technical Interview",
+      "value": 11
+    },
+    {
+      "source": "Applied;Recruiter Interview;Technical Interview",
+      "target": "Applied;Recruiter Interview;Technical Interview;Manager Interview",
+      "value": 1
+    },
+    {
+      "source": "Applied;Recruiter Interview;Technical Interview;Manager Interview",
+      "target": "Rejected",
+      "value": 1
+    },
+    {
+      "source": "Applied",
+      "target": "Applied;Technical Interview",
+      "value": 1
+    },
+    {
+      "source": "Applied;Technical Interview",
+      "target": "Onsite Interview",
+      "value": 1
+    },
+    {
+      "source": "Onsite Interview",
+      "target": "Rejected",
+      "value": 4
+    },
+    {
+      "source": "Applied;Recruiter Interview;Technical Interview",
+      "target": "Rejected",
+      "value": 5
+    },
+    {
+      "source": "Applied;Recruiter Interview;Technical Interview",
+      "target": "Onsite Interview",
+      "value": 5
+    },
+    {
+      "source": "Applied;Recruiter Interview",
+      "target": "Rejected",
+      "value": 8
+    },
+    {
+      "source": "Applied;Recruiter Interview",
+      "target": "Applied;Recruiter Interview;Manager Interview",
+      "value": 2
+    },
+    {
+      "source": "Applied;Recruiter Interview;Manager Interview",
+      "target": "Rejected",
+      "value": 1
+    },
+    {
+      "source": "Applied",
+      "target": "Applied;Rejected By Me",
+      "value": 1
+    },
+    {
+      "source": "Applied",
+      "target": "Applied;Manager Interview",
+      "value": 2
+    },
+    {
+      "source": "Applied;Recruiter Interview",
+      "target": "Applied;Recruiter Interview;Rejected By Me",
+      "value": 2
+    },
+    {
+      "source": "Onsite Interview",
+      "target": "Onsite Interview;Manager Interview",
+      "value": 2
+    },
+    {
+      "source": "Onsite Interview;Manager Interview",
+      "target": "Onsite Interview;Manager Interview;2nd Technical",
+      "value": 1
+    },
+    {
+      "source": "Onsite Interview;Manager Interview;2nd Technical",
+      "target": "Onsite Interview;Manager Interview;2nd Technical;Offer",
+      "value": 1
+    },
+    {
+      "source": "Onsite Interview;Manager Interview",
+      "target": "Rejected",
+      "value": 1
+    },
+    {
+      "source": "Applied;Recruiter Interview;Manager Interview",
+      "target": "Applied;Recruiter Interview;Manager Interview;Technical Interview",
+      "value": 1
+    },
+    {
+      "source": "Applied;Recruiter Interview;Manager Interview;Technical Interview",
+      "target": "Applied;Recruiter Interview;Manager Interview;Technical Interview;2nd Technical",
+      "value": 1
+    },
+    {
+      "source": "Applied;Recruiter Interview;Manager Interview;Technical Interview;2nd Technical",
+      "target": "Rejected",
+      "value": 1
+    },
+    {
+      "source": "Applied;Manager Interview",
+      "target": "Rejected",
+      "value": 1
+    },
+    {
+      "source": "Applied",
+      "target": "No Reply",
+      "value": 33
+    },
+    {
+      "source": "Applied;Recruiter Interview",
+      "target": "No Reply",
+      "value": 3
+    },
+    {
+      "source": "Applied;Recruiter Interview;Technical Interview",
+      "target": "No Reply",
+      "value": 0
+    },
+    {
+      "source": "Onsite Interview;Manager Interview",
+      "target": "No Reply",
+      "value": 0
+    },
+    {
+      "source": "Applied;Manager Interview",
+      "target": "No Reply",
+      "value": 1
+    }
+  ]
+}
