@@ -10,6 +10,8 @@ This whole website started as a way for me practice writing code again, after ta
 
 ## Graph of my 2023 job search
 
+[Link to fullscreen graph](/images/job-search-2023/sankey-diagram-light.png)
+
 <JobSearchSankey className="overflowScroll" />
 
 ## How I constructed this graph
@@ -20,7 +22,7 @@ I used [d3-sankey](https://github.com/d3/d3-sankey).
 
 Here are some improvements I'd like to make the visualization if I have time.
 
-- Unfortunately the diagram is not responsive. [Here's a PNG version](/images/job-search-2023/sankey-diagram-light.png).
+- Make the diagram more responsive for mobile format.
 - Add interactivity; allow hovering to reveal more details.
 - Reorder the nodes to be more logical.
 

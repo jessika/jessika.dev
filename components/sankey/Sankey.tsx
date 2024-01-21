@@ -50,11 +50,11 @@ export function Sankey({
   const sankeyGenerator = sankey<Node, Link>()
     .nodeSort((a, b) => 0)
     .nodeWidth(20)
-    .nodePadding(40)
+    .nodePadding(36)
     .extent([
       [MARGIN_X, MARGIN_Y],
       // Tweak the number to account for far-right node labels
-      [width - 100, height - MARGIN_Y],
+      [width - 80, height - MARGIN_Y],
     ])
     // Use the order that nodes are in the props list
     // Tweak iterations if the links look weird

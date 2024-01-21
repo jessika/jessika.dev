@@ -10,9 +10,9 @@ import { JobSearchSankeyProps } from "./types";
  */
 export default function JobSearchSankey({
   className = "",
-  height = 800,
-  iterations = 0,
-  width = 976,
+  height = 500,
+  iterations = 100,
+  width = 1024,
 }: JobSearchSankeyProps) {
   const { nodes, links }: { nodes: Node[]; links: Link[] } = sankeyDatas;
   return (
